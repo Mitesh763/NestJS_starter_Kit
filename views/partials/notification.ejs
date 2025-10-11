@@ -1,0 +1,57 @@
+<div style="position:fixed; top:20px; right:20px; z-index:9999">
+  <div id="borderedToast2" class="toast toast-border-success overflow-hidden mt-3" role="alert" aria-live="assertive"
+    aria-atomic="true" data-bs-autohide="true" data-bs-delay="4000">
+    <div class="toast-body">
+      <div class="d-flex align-items-start">
+        <div class="flex-shrink-0 me-2">
+          <i class="ri-checkbox-circle-fill align-middle fs-2 text-success"></i>
+        </div>
+        <div class="flex-grow-1">
+          <h6 class="fs-5 mt-2 ms-1 mb-0"></h6>
+        </div>
+        <button type="button" class="btn-close ms-3 mt-2 opacity-50" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="borderedToast4" class="toast toast-border-danger overflow-hidden mt-3" role="alert" aria-live="assertive"
+    aria-atomic="true" data-bs-autohide="false">
+    <div class="toast-body">
+      <div class="d-flex align-items-start">
+        <div class="flex-shrink-0 me-2">
+          <i class="ri-alert-line align-middle fs-2 text-danger"></i>
+        </div>
+        <div class="flex-grow-1">
+          <h6 class="fs-5 mt-2 ms-1 mb-0"></h6>
+        </div>
+        <button type="button" class="btn-close ms-3 mt-2 opacity-50" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% if (message && message.length> 0) { %>
+  <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      var toast = new bootstrap.Toast(document.getElementById("borderedToast2"));
+      toast.show();
+      document.querySelector("#borderedToast2 .toast-body h6").textContent =
+        "<%= message %>";
+    });
+  </script>
+  <% } %>
+
+    <% if (toastError && toastError.length> 0) { %>
+      <script>
+        window.addEventListener("DOMContentLoaded", function () {
+          var toast = new bootstrap.Toast(document.getElementById("borderedToast4"));
+          toast.show();
+
+          const toastMessage = "<%- toastError[0] %>";
+          document.querySelector("#borderedToast4 .toast-body h6").textContent = toastMessage;
+        });
+      </script>
+      <% } %>

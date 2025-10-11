@@ -1,0 +1,86 @@
+<%- contentFor('HeaderCss') %>
+  <%- include("../partials/title-meta", { "title" : "Login" }) %>
+    <%- contentFor('body') %>
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="row w-50 ">
+
+          <div class="card">
+            <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">User Edit Form</h4>
+              <div class="flex-shrink-0">
+              </div>
+            </div>
+
+            <div class="card-body ">
+              <div class="live-preview">
+                <form class="needs-validation" action="/users/<%- user.id %>/update?_method=put" method="POST"
+                  novalidate>
+                  <div class="row">
+
+                    <div class="mb-3">
+                      <label for="nameinput" class="form-label">Name <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" name="name" value="<%- user.email %>"
+                        placeholder="Enter your name" id="nameinput">
+                      <div class="invalid-feedback">
+                        Please enter name
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="">
+                    <div class="mb-3">
+                      <label for="phone_numberInput" class="form-label">Phone Number <span
+                          class="text-danger">*</span></label>
+                      <input type="tel" class="form-control" name="phone_number" value="<%- user.phone_number %>"
+                        placeholder="+(245) 451 45123"
+                        id="phone_numberInput">
+                      <div class="invalid-feedback">
+                        Please enter phone number
+                      </div>
+                      <% const phone_numberError=error && error.find(e=> e.field === 'phone_number');
+                        %>
+                        <% if (phone_numberError) { %>
+                          <div class="text-danger">
+                            <%= phone_numberError.errors[0] %>
+                          </div>
+                          <% } %>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="emailidInput" class="form-label">Email Address <span
+                          class="text-danger">*</span></label>
+                      <input type="email" class="form-control" name="email" value="<%- user.email %>"
+                        placeholder="example@gamil.com" id="emailidInput">
+                      <div class="invalid-feedback">
+                        Please enter email
+                      </div>
+                      <% const emailError=error && error.find(e=> e.field === 'email');
+                        %>
+                        <% if (emailError) { %>
+                          <div class="text-danger">
+                            <%= emailError.errors[0] %>
+                          </div>
+                          <% } %>
+                    </div>
+
+                    <div class="row">
+                      <div class="text-end col">
+                        <a href="/users/list" class="btn btn-danger">Cancel</a>
+                      </div>
+                      <div class="col">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="d-none code-view">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <%- contentFor('FooterJs') %>
+
+
+          <script src="/assets/libs/prismjs/prism.js"></script>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html
+  lang="en"
+  data-layout="vertical"
+  data-topbar="light"
+  data-sidebar="dark"
+  data-sidebar-size="lg"
+  data-sidebar-image="none"
+  data-preloader="disable"
+>
+  <head>
+    <meta charset="utf-8" />
+    <title><%-title%> | ShopNest - Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="Premium Multipurpose Admin & Dashboard Template"
+      name="description"
+    />
+    <meta content="Themesbrand" name="author" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <%- HeaderCss %> <%- include ('../partials/head-css.ejs') %>
+  </head>
+
+  <body>
+    <div id="layout-wrapper">
+      <%- include ('../partials/topbar') %> <%- include ('../partials/sidebar')
+      %>
+      <div class="main-content overflow-hidden">
+        <div class="page-content">
+          <div class="container-fluid">
+            <%- include ('../partials/page-title') %> <%-
+            include('../partials/notification') %> <%- body%>
+          </div>
+        </div>
+      </div>
+      <%- include ('../partials/footer') %>
+    </div>
+
+    <%- include ('../partials/vendor-scripts') %> <%- FooterJs %>
+
+    <script src="/assets/js/app.js"></script>
+  </body>
+</html>
