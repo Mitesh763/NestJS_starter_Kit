@@ -48,7 +48,10 @@ export class RegisterController {
       return res.redirect('/');
     }
 
-    req.flash('error', ['Registration failed, due to invalid data']);
+    req.flash('toast', {
+      message: 'Registration failed, due to invalid data',
+      type: 'error',
+    });
     req.flash('oldInput', req.body);
     return res.redirect('register');
   }
