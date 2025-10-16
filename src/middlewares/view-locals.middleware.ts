@@ -12,7 +12,7 @@ export class ViewLocalsMiddleware implements NestMiddleware {
     const oldInputFlash = req.flash ? req.flash('oldInput') : [];
     res.locals.oldInput = oldInputFlash.length > 0 ? oldInputFlash[0] : {};
 
-    res.locals.user = req.user || null;
+    res.locals.authUser = req.authUser || null;
 
     next();
   }

@@ -2,7 +2,6 @@
   <div class="layout-width">
     <div class="navbar-header">
       <div class="d-flex">
-        <!-- LOGO -->
         <div class="navbar-brand-box horizontal-logo">
           <a href="/index" class="logo logo-dark">
             <span class="logo-sm">
@@ -35,7 +34,6 @@
           </span>
         </button>
 
-        <!-- App Search-->
         <form class="app-search d-none d-md-block">
           <div class="position-relative">
             <input
@@ -54,7 +52,6 @@
           </div>
           <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
             <div data-simplebar style="max-height: 320px">
-              <!-- item-->
               <div class="dropdown-header">
                 <h6 class="text-overflow text-muted mb-0 text-uppercase">
                   Recent Searches
@@ -73,14 +70,12 @@
                   >buttons <i class="mdi mdi-magnify ms-1"></i
                 ></a>
               </div>
-              <!-- item-->
               <div class="dropdown-header mt-2">
                 <h6 class="text-overflow text-muted mb-1 text-uppercase">
                   Pages
                 </h6>
               </div>
 
-              <!-- item-->
               <a href="javascript:void(0);" class="dropdown-item notify-item">
                 <i
                   class="ri-bubble-chart-line align-middle fs-18 text-muted me-2"
@@ -88,7 +83,6 @@
                 <span>Analytics Dashboard</span>
               </a>
 
-              <!-- item-->
               <a href="javascript:void(0);" class="dropdown-item notify-item">
                 <i
                   class="ri-lifebuoy-line align-middle fs-18 text-muted me-2"
@@ -96,7 +90,6 @@
                 <span>Help Center</span>
               </a>
 
-              <!-- item-->
               <a href="javascript:void(0);" class="dropdown-item notify-item">
                 <i
                   class="ri-user-settings-line align-middle fs-18 text-muted me-2"
@@ -104,7 +97,6 @@
                 <span>My account settings</span>
               </a>
 
-              <!-- item-->
               <div class="dropdown-header mt-2">
                 <h6 class="text-overflow text-muted mb-2 text-uppercase">
                   Members
@@ -112,7 +104,6 @@
               </div>
 
               <div class="notification-list">
-                <!-- item -->
                 <a
                   href="javascript:void(0);"
                   class="dropdown-item notify-item py-2"
@@ -129,7 +120,6 @@
                     </div>
                   </div>
                 </a>
-                <!-- item -->
                 <a
                   href="javascript:void(0);"
                   class="dropdown-item notify-item py-2"
@@ -146,7 +136,6 @@
                     </div>
                   </div>
                 </a>
-                <!-- item -->
                 <a
                   href="javascript:void(0);"
                   class="dropdown-item notify-item py-2"
@@ -246,7 +235,7 @@
               <span class="text-start ms-xl-2">
                 <span
                   class="d-none d-xl-inline-block ms-1 fw-medium user-name-text"
-                  ><%= user.name %></span
+                  ><%= authUser.name %></span
                 >
                 <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text"
                   >Founder</span
@@ -256,8 +245,8 @@
           </button>
           <div class="dropdown-menu dropdown-menu-end">
             <!-- item-->
-            <h6 class="dropdown-header">Welcome <%= user.name %>!</h6>
-            <a class="dropdown-item" href="/user"
+            <h6 class="dropdown-header">Welcome <%= authUser.name %>!</h6>
+            <a class="dropdown-item" href="/profile"
               ><i
                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"
               ></i>

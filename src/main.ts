@@ -12,6 +12,7 @@ import * as i18n from 'i18n-express';
 import { log } from './utils/logger';
 import { Logger } from 'winston';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
+import { CustomValidationPipe } from './common/pipes/validation.pipe';
 
 const fileUpload = require('express-fileupload');
 const expressLayouts = require('express-ejs-layouts');
@@ -25,12 +26,12 @@ async function bootstrap() {
 
   app.use(methodOverride('_method'));
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-    }),
-  );
+  // app.useGlobalPipes(
+  //   new ValidationPipe({
+  //     whitelist: true,
+  //     forbidNonWhitelisted: true,
+  //   }),
+  // );
 
   // Set up view engine
   app.useStaticAssets(join(__dirname, '..', 'public'));
@@ -62,6 +63,7 @@ async function bootstrap() {
   );
 
   app.useGlobalFilters(new GlobalExceptionFilter());
+  app.useGlobalPipes(new CustomValidationPipe());
 
   await app.listen(process.env.PORT ?? 9000);
   console.log('app is running on port: ', process.env.PORT ?? 9000);

@@ -104,11 +104,11 @@ export class AuthService {
     const payload = decodeJwt(token);
     const jwtPayload = validateJwtPayload(payload);
 
-    if (!req.user || typeof req.user.id !== 'number') {
+    if (!req.authUser || typeof req.authUser.id !== 'number') {
       throw new Error('Invalid user information in request');
     }
     return this.oauthAccessTokenService.revokeAccessToken(
-      req.user.id,
+      req.authUser.id,
       jwtPayload.tokenId,
     );
   }

@@ -12,7 +12,7 @@ export class UserSessionMiddleware implements NestMiddleware {
     if (userId) {
       const user = await this.usersService.findOne(userId);
 
-      if (user) req.user = user;
+      if (user) req.authUser = user;
       else if (req.session) req.session.userId = '';
     }
 
