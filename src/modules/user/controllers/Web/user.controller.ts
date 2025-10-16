@@ -51,8 +51,7 @@ export class UserController {
   }
 
   @Get('/create')
-  createUserView(@Res() res: Response, @CurrentUser() user: User) {
-    console.log('User: ', user);
+  createUserView(@Res() res: Response) {
     return res.render('user/create', {
       title: 'Create User',
       page_title: 'Create User',
@@ -100,10 +99,14 @@ export class UserController {
       const user = await this.userService.update(id, body);
 
       if (!user) {
-        console.error('User not found');
+        req.flash('oldInput', req.body);
       }
 
-      req.flash('message', 'User updated successfully!');
+      req.flash('toast', {
+        message: 'User updated successfully!',
+        type: 'success',
+      });
+
       return res.redirect('/users/' + id);
     } catch (error) {
       console.log(error);
@@ -117,9 +120,18 @@ export class UserController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    await this.userService.create(body);
+    const result = await this.userService.create(body);
 
-    req.flash('message', 'User created successfully!');
+    if (!result) {
+      req.flash('oldInput', req.body);
+
+      return res.redirect('/users/create');
+    }
+
+    req.flash('toast', {
+      message: 'User created successfully!',
+      type: 'success',
+    });
     return res.redirect('/users/list');
   }
 
@@ -141,7 +153,10 @@ export class UserController {
   ) {
     await this.userService.remove(id);
 
-    req.flash('message', 'User deleted successfully!');
+    req.flash('toast', {
+      message: 'User deleted successfully!',
+      type: 'success',
+    });
     return res.redirect('/users/list');
   }
 }

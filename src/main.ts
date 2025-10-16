@@ -64,6 +64,7 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalExceptionFilter());
 
   await app.listen(process.env.PORT ?? 9000);
+  console.log('app is running on port: ', process.env.PORT ?? 9000);
 }
 
 void bootstrap();

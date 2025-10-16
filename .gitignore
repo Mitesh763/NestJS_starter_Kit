@@ -6,10 +6,6 @@
 # Dependencies
 /node_modules
 
-# Environment Variables
-.env
-.env.copy
-
 # Public build artifacts
 /public/build
 /public/hot

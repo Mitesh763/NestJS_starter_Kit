@@ -19,11 +19,16 @@
 
                     <div class="mb-3">
                       <label for="nameinput" class="form-label">Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" name="name" value="<%- user.email %>"
+                      <input type="text" class="form-control" name="name" value="<%= (oldInput && oldInput.name) ? oldInput.name : user.name %>"
                         placeholder="Enter your name" id="nameinput">
                       <div class="invalid-feedback">
                         Please enter name
                       </div>
+                      <% if (error && error.name) { %>
+                        <div class="text-danger">
+                          <%= error.name[0] %>
+                        </div>
+                        <% } %>
                     </div>
 
                   </div>
@@ -31,36 +36,32 @@
                     <div class="mb-3">
                       <label for="phone_numberInput" class="form-label">Phone Number <span
                           class="text-danger">*</span></label>
-                      <input type="tel" class="form-control" name="phone_number" value="<%- user.phone_number %>"
+                      <input type="tel" class="form-control" name="phone_number" value="<%= (oldInput && oldInput.phone_number) ? oldInput.phone_number : user.phone_number %>"
                         placeholder="+(245) 451 45123"
                         id="phone_numberInput">
                       <div class="invalid-feedback">
                         Please enter phone number
                       </div>
-                      <% const phone_numberError=error && error.find(e=> e.field === 'phone_number');
-                        %>
-                        <% if (phone_numberError) { %>
-                          <div class="text-danger">
-                            <%= phone_numberError.errors[0] %>
-                          </div>
-                          <% } %>
+                      <% if (error && error.phone_number) { %>
+                        <div class="text-danger">
+                          <%= error.phone_number[0] %>
+                        </div>
+                        <% } %>
                     </div>
 
                     <div class="mb-3">
                       <label for="emailidInput" class="form-label">Email Address <span
                           class="text-danger">*</span></label>
-                      <input type="email" class="form-control" name="email" value="<%- user.email %>"
+                      <input type="email" class="form-control" name="email" value="<%= (oldInput && oldInput.email) ? oldInput.email : user.email %>"
                         placeholder="example@gamil.com" id="emailidInput">
                       <div class="invalid-feedback">
                         Please enter email
                       </div>
-                      <% const emailError=error && error.find(e=> e.field === 'email');
-                        %>
-                        <% if (emailError) { %>
-                          <div class="text-danger">
-                            <%= emailError.errors[0] %>
-                          </div>
-                          <% } %>
+                      <% if (error && error.email) { %>
+                        <div class="text-danger">
+                          <%= error.email[0] %>
+                        </div>
+                        <% } %>
                     </div>
 
                     <div class="row">

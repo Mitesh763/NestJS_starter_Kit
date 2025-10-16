@@ -42,15 +42,15 @@ export class LoginController {
     const { email, password } = body;
 
     const user = await this.authService.validateUser(email, password);
-    console.log('user: ', user);
     if (user) {
       session.userId = user.id;
 
-      req.flash('message', 'Login successfully!');
+      req.flash('toast', { message: 'Login successfully!', type: 'success' });
       return res.redirect('/');
     }
 
     req.flash('error', ['Invalid Credentials!']);
+    req.flash('oldInput', req.body);
     return res.redirect('login');
   }
 
@@ -59,7 +59,7 @@ export class LoginController {
   logout(@Session() session, @Res() res: Response, @Req() req: Request) {
     session.userId = null;
 
-    req.flash('message', 'Logout successfully!');
+    req.flash('toast', { message: 'Logout successfully!', type: 'success' });
     return res.redirect('login');
   }
 }

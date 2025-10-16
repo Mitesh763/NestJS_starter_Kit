@@ -1,14 +1,21 @@
 import { IsString, IsEmail, IsOptional, IsPhoneNumber } from 'class-validator';
 export class UpdateUserDto {
-  @IsString()
+  @IsString({ message: 'name Please Enter Valid Name' })
   @IsOptional()
   name: string;
 
-  @IsEmail()
+  @IsEmail(
+    {},
+    {
+      message: 'email Please Enter Valid Email',
+    },
+  )
   @IsOptional()
   email: string;
 
-  @IsPhoneNumber()
+  @IsPhoneNumber('IN', {
+    message: 'phone_number Please enter a valid Phone Number',
+  })
   @IsOptional()
   phone_number: string;
 }

@@ -6,15 +6,30 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @IsString()
+  @IsString({ message: 'name Please Enter Valid Name' })
   name: string;
 
-  @IsEmail()
+  @IsEmail(
+    {},
+    {
+      message: 'email Please enter a valid email address.',
+    },
+  )
   email: string;
 
-  @IsPhoneNumber()
+  @IsPhoneNumber('IN', {
+    message: 'phone_number Please enter a valid Phone Number',
+  })
   phone_number: string;
 
-  @IsStrongPassword()
+  @IsStrongPassword(
+    {
+      minLength: 8,
+    },
+    {
+      message:
+        'password Password must be at least 8 characters long and contain uppercase, lowercase, number, and symbol.',
+    },
+  )
   password: string;
 }

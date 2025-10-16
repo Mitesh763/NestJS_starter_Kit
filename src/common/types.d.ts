@@ -9,6 +9,6 @@ declare module 'express-serve-static-core' {
       userId?: string;
     };
     requestId?: string;
-    flash(type: string, message?: any): any;
+    flash(type?: string, message?: any): any;
   }
 }

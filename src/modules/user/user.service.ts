@@ -1,9 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { paginate, Paginated, PaginateQuery } from 'nestjs-paginate';
+import { CreateUserDto } from './dto/request/create-user.dto';
+import { randomBytes, scrypt as _scrypt } from 'crypto';
+import { promisify } from 'util';
 
+const scrypt = promisify(_scrypt);
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
@@ -37,10 +45,20 @@ export class UserService {
   findOne(id: string) {
     return this.repo.findOne({ where: { id } });
   }
+  async create(createUserDto: CreateUserDto) {
+    const user = await this.findOneByEmail(createUserDto.email);
 
-  create(attributes: Partial<User>) {
-    const user = this.repo.create(attributes);
-    return this.repo.save(user);
+    if (user)
+      throw new BadRequestException('User already exists, please login');
+
+    const salt = randomBytes(8).toString('hex');
+    const hash = (
+      (await scrypt(createUserDto.password, salt, 32)) as Buffer
+    ).toString('hex');
+    createUserDto.password = `${salt}.${hash}`;
+
+    const newUser = await this.repo.create(createUserDto);
+    return this.repo.save(newUser);
   }
 
   async update(id: string, attributes: Partial<User>) {

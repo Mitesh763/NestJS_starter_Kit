@@ -41,11 +41,15 @@ export class RegisterController {
     if (user) {
       session.userId = user.id;
 
-      req.flash('message', 'Registration successfully!');
+      req.flash('toast', {
+        message: 'Registration successfully!',
+        type: 'success',
+      });
       return res.redirect('/');
     }
 
     req.flash('error', ['Registration failed, due to invalid data']);
+    req.flash('oldInput', req.body);
     return res.redirect('register');
   }
 }

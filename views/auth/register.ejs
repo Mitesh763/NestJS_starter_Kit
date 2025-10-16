@@ -40,110 +40,93 @@
                     </div>
                     <div class="p-2 mt-4">
 
-                      <% const generalErrors=error && error.filter(e=> !['email', 'password',
-                        'phone_number'].includes(e.field));
-                        %>
+                      <form class="needs-validation" action="/register" method="post" novalidate>
 
-                        <% if (generalErrors && generalErrors.length> 0) { %>
-                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <%= generalErrors[0].errors[0] %>
+                        <div class="mb-3">
+                          <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" value="<%= (typeof oldInput !== 'undefined' && oldInput && oldInput.name) ? oldInput.name : '' %>" id="name" name="name" placeholder="Enter name"
+                            required>
+                          <div class="invalid-feedback">
+                            Please enter name
                           </div>
-                          <% } %>
-                            <form class="needs-validation" action="/register" method="post" novalidate>
+                        </div>
+                        <div class="mb-3">
+                          <label for="useremail" class="form-label">Email <span class="text-danger">*</span></label>
+                          <input type="email" class="form-control" id="useremail" name="email" value="<%= (typeof oldInput !== 'undefined' && oldInput && oldInput.email) ? oldInput.email : '' %>"
+                            placeholder="Enter email address">
+                          <div class="invalid-feedback">
+                            Please enter email
+                          </div>
+                           <% if (error && error.email) { %>
+                        <div class="text-danger">
+                          <%= error.email[0] %>
+                        </div>
+                        <% } %>
+                        </div>
+                        <div class="mb-3">
+                          <label for="phone_number" class="form-label">Phone Number <span
+                              class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="phone_number" name="phone_number" value="<%= (typeof oldInput !== 'undefined' && oldInput && oldInput.phone_number) ? oldInput.phone_number : '' %>"
+                            placeholder="Enter phone number" required>
+                          <div class="invalid-feedback">
+                            Please enter phone number
+                          </div>
+                           <% if (error && error.phone_number) { %>
+                        <div class="text-danger">
+                          <%= error.phone_number[0] %>
+                        </div>
+                        <% } %>
+                        </div>
 
-                              <div class="mb-3">
-                                <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"
-                                  required>
-                                <div class="invalid-feedback">
-                                  Please enter name
-                                </div>
-                              </div>
-                              <div class="mb-3">
-                                <label for="useremail" class="form-label">Email <span
-                                    class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="useremail" name="email"
-                                  placeholder="Enter email address">
-                                <div class="invalid-feedback">
-                                  Please enter email
-                                </div>
-                                <% const emailError=error && error.find(e=> e.field === 'email');
-                                  %>
-                                  <% if (emailError) { %>
-                                    <div class="text-danger">
-                                      <%= emailError.errors[0] %>
-                                    </div>
-                                    <% } %>
-                              </div>
-                              <div class="mb-3">
-                                <label for="phone_number" class="form-label">Phone Number <span
-                                    class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                  placeholder="Enter phone number" required>
-                                <div class="invalid-feedback">
-                                  Please enter phone number
-                                </div>
-                                <% const phone_numberError=error && error.find(e=> e.field === 'phone_number');
-                                  %>
-                                  <% if (phone_numberError) { %>
-                                    <div class="text-danger">
-                                      <%= phone_numberError.errors[0] %>
-                                    </div>
-                                    <% } %>
-                              </div>
+                        <div class="mb-3">
+                          <label class="form-label" for="password-input">Password <span
+                              class="text-danger">*</span></label>
+                          <div class="position-relative auth-pass-inputgroup">
+                            <input type="password" class="form-control pe-5 password-input" name="password"
+                              onpaste="return false" placeholder="Enter password" value="<%= (typeof oldInput !== 'undefined' && oldInput && oldInput.password) ? oldInput.password : '' %>" id="password-input"
+                              aria-describedby="passwordInput" required>
+                            <button
+                              class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
+                              type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                            <div class="invalid-feedback">
+                              Please enter password
+                            </div>
+                             <% if (error && error.password) { %>
+                        <div class="text-danger">
+                          <%= error.password[0] %>
+                        </div>
+                        <% } %>
+                          </div>
+                        </div>
 
-                              <div class="mb-3">
-                                <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
-                                <div class="position-relative auth-pass-inputgroup">
-                                  <input type="password" class="form-control pe-5 password-input" name="password"
-                                    onpaste="return false" placeholder="Enter password" id="password-input"
-                                    aria-describedby="passwordInput" required>
-                                  <button
-                                    class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
-                                    type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
-                                  <div class="invalid-feedback">
-                                    Please enter password
-                                  </div>
-                                  <% const passwordError=error && error.find(e=> e.field === 'password');
-                                    %>
-                                    <% if (passwordError) { %>
-                                      <div class="text-danger">
-                                        <%= passwordError.errors[0] %>
-                                      </div>
-                                      <% } %>
-                                </div>
-                              </div>
+                        <div class="mb-4">
+                          <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the ShopNest <a
+                              href="#" class="text-primary text-decoration-underline fst-normal fw-medium">Terms
+                              of
+                              Use</a></p>
+                        </div>
 
-                              <div class="mb-4">
-                                <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the ShopNest <a
-                                    href="#" class="text-primary text-decoration-underline fst-normal fw-medium">Terms
-                                    of
-                                    Use</a></p>
-                              </div>
+                        <div class="mt-4">
+                          <button class="btn btn-success w-100" type="submit">Sign Up</button>
+                        </div>
 
+                        <div class="mt-4 text-center">
+                          <div class="signin-other-title">
+                            <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
+                          </div>
 
-
-                              <div class="mt-4">
-                                <button class="btn btn-success w-100" type="submit">Sign Up</button>
-                              </div>
-
-                              <div class="mt-4 text-center">
-                                <div class="signin-other-title">
-                                  <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
-                                </div>
-
-                                <div>
-                                  <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i
-                                      class="ri-facebook-fill fs-16"></i></button>
-                                  <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i
-                                      class="ri-google-fill fs-16"></i></button>
-                                  <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i
-                                      class="ri-github-fill fs-16"></i></button>
-                                  <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i
-                                      class="ri-twitter-fill fs-16"></i></button>
-                                </div>
-                              </div>
-                            </form>
+                          <div>
+                            <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i
+                                class="ri-facebook-fill fs-16"></i></button>
+                            <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i
+                                class="ri-google-fill fs-16"></i></button>
+                            <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i
+                                class="ri-github-fill fs-16"></i></button>
+                            <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i
+                                class="ri-twitter-fill fs-16"></i></button>
+                          </div>
+                        </div>
+                      </form>
 
                     </div>
                   </div>
